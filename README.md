@@ -13,16 +13,56 @@ npm install --save react-scroll-sticky
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+//
+const App = () => {
+  //
+  const { calculateAgain, ref_main_elm, ref_sticky_elm, ref_fake_elm } =
+    useScrollSticky({
+      sticky_location: /./,
+      header_head: 0,
+      detectInnerWidthIsOk: detectInnerWidthIsOk
+    })
 
-import MyComponent from 'react-scroll-sticky'
-import 'react-scroll-sticky/dist/index.css'
+  //
+  React.useEffect(() => {
+    calculateAgain()
+  }, [calculateAgain])
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
+  // ----
+
+  //
+  function detectInnerWidthIsOk() {
+    return true
   }
+
+  //
+  return (
+    <div className={styles.main}>
+      <div className={styles.row}>
+        <div className={`${styles.left}`}>
+          <ScrollSticky
+            ref_main_elm={ref_main_elm}
+            ref_fake_elm={ref_fake_elm}
+            ref_sticky_elm={ref_sticky_elm}
+          >
+            <div className={styles.preview}>
+              <div>1</div>
+
+              <div>2</div>
+
+              <div>3</div>
+
+              <div>4</div>
+            </div>
+          </ScrollSticky>
+        </div>
+
+        <div className={`${styles.right}`}></div>
+      </div>
+    </div>
+  )
 }
+
 ```
 
 ## License

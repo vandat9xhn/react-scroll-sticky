@@ -15,13 +15,17 @@ function handleScrollTo(new_pos = 0) {
 }
 
 //
-export function useStickyAuto({ sticky_location = /./, header_head = 70 }) {
+export function useScrollSticky({
+  sticky_location = /./,
+  header_head = 70,
+  detectInnerWidthIsOk = isInnerWidthOk
+}) {
   //
   const ref_main_elm = useRef<HTMLDivElement>(null)
   const ref_fake_elm = useRef<HTMLDivElement>(null)
   const ref_sticky_elm = useRef<HTMLDivElement>(null)
 
-  const ref_is_innerWidth_ok = useRef(isInnerWidthOk())
+  const ref_is_innerWidth_ok = useRef(detectInnerWidthIsOk())
   const ref_is_href_ok = useRef(isHrefOk(sticky_location))
   const has_event_scroll = useRef(false)
 
@@ -142,7 +146,7 @@ export function useStickyAuto({ sticky_location = /./, header_head = 70 }) {
     }
 
     ref_is_href_ok.current = isHrefOk(sticky_location)
-    ref_is_innerWidth_ok.current = isInnerWidthOk()
+    ref_is_innerWidth_ok.current = detectInnerWidthIsOk()
     ref_more_height.current = getNewMoreHeight()
 
     if (ref_is_innerWidth_ok.current) {
@@ -230,7 +234,7 @@ export function useStickyAuto({ sticky_location = /./, header_head = 70 }) {
       return
     }
 
-    const new_innerWidth_ok = isInnerWidthOk()
+    const new_innerWidth_ok = detectInnerWidthIsOk()
 
     if (new_innerWidth_ok) {
       if (!ref_is_innerWidth_ok.current) {
